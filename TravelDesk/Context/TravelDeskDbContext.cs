@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TravelDesk.Models;
+using TravelDeskNst.Models;
 
 namespace TravelDesk.Context
 {
@@ -14,23 +14,16 @@ namespace TravelDesk.Context
             
         }
         public DbSet<User> Users { get; set; }
-        public DbSet<ApplicationRequest> ApplicationRequests { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<CommonTypeRef> CommonTypes { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<HotelDetail> HotelDetails { get; set; }
+        public DbSet<Documents> Documents { get; set; }
+        public DbSet<TransportDetail> TransportDetails { get; set; }
 
-        public DbSet<MasterDataReference> MasterDataReferences { get; set; }
 
-        public DbSet<ApplicationRequestHistory> ApplicationRequestsHistory { get; set; }
-
-        public DbSet<Department> Departments { get; set; }
-        public DbSet<Document> Documents { get; set; }
-        public DbSet<HistoryDetails> HistoryDetails { get; set; }
-        public DbSet<Hotel> Hotels { get; set; }
-
-        public DbSet<City> Citys { get; set; } 
-        public DbSet<UserRoleMapping> UserRoles { get; set; }
-          
-     }
+    }
 
 
 }
