@@ -2,7 +2,7 @@
 {
     public class TransportDetail
     {
-        public int Id { get; set; }
+        public int TransportDetailId { get; set; }
 
         public Request? Request { get; set; }
         public int RequestId { get; set; }

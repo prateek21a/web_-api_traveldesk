@@ -4,7 +4,7 @@ namespace TravelDeskNst.Models
 {
     public class User
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
@@ -26,7 +26,7 @@ namespace TravelDeskNst.Models
         public virtual CommonTypeRef? Department { get; set; }
         public int DepartmentId { get; set; }
         public virtual User Manager { get; set; }
-        public int ManagerId { get; set; }
+        public int? ManagerId { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public string? ModifiedBy { get; set; }
