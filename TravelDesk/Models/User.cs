@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace TravelDeskNst.Models
 {
     public class User
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
@@ -32,10 +33,6 @@ namespace TravelDeskNst.Models
         public string? ModifiedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public Boolean IsActive { get; set; } = true;
-
-
-
-
-
+        public ClaimsIdentity? RoleName { get; internal set; }
     }
 }

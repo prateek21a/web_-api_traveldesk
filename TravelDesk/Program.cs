@@ -18,15 +18,15 @@ namespace TravelDesk
             // Add services to the container.
 
             builder.Services.AddControllers();
-            builder.Services.AddCors(opt =>
-            {
-                opt.AddDefaultPolicy(builder =>
-                {
-                    builder.AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
-            });
+            //builder.Services.AddCors(opt =>
+            //{
+            //    opt.AddDefaultPolicy(builder =>
+            //    {
+            //        builder.AllowAnyOrigin()
+            //            .AllowAnyHeader()
+            //            .AllowAnyMethod();
+            //    });
+            //});
             builder.Services.AddDbContext<TravelDeskDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("TravelDeskDbConnection"));
@@ -74,6 +74,7 @@ namespace TravelDesk
        
 
             var app = builder.Build();
+            app.UseCors();
             // Configure the HTTP request pipeline.
 
             if (app.Environment.IsDevelopment())
@@ -81,7 +82,7 @@ namespace TravelDesk
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseCors();
+           
 
 
             app.UseAuthentication();

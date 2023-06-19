@@ -2,7 +2,7 @@
 {
     public class HotelDetail
     {
-        public int HotelDetailId { get; set; }
+        public int Id { get; set; }
         public Request? Request { get; set; }
         public int RequestId { get; set; }
         public DateTime StayDateFrom { get; set; }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelDesk.Context;
 
@@ -11,9 +12,11 @@ using TravelDesk.Context;
 namespace TravelDesk.Migrations
 {
     [DbContext(typeof(TravelDeskDbContext))]
-    partial class TravelDeskDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230613091541_start")]
+    partial class start
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,16 +33,18 @@ namespace TravelDesk.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CommentName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("DomesticTravel")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("InternationalTrvel")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -50,12 +55,34 @@ namespace TravelDesk.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("PassportNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("RequestId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("TravelDateFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TravelDateTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TravelFromId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TravelToId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VisaNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RequestId");
+
+                    b.HasIndex("TravelFromId");
+
+                    b.HasIndex("TravelToId");
 
                     b.ToTable("Comments");
                 });
@@ -250,7 +277,7 @@ namespace TravelDesk.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ManagerId")
+                    b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
                     b.Property<string>("ModifiedBy")
@@ -423,7 +450,23 @@ namespace TravelDesk.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TravelDeskNst.Models.CommonTypeRef", "TravelFrom")
+                        .WithMany()
+                        .HasForeignKey("TravelFromId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelDeskNst.Models.CommonTypeRef", "TravelTo")
+                        .WithMany()
+                        .HasForeignKey("TravelToId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Request");
+
+                    b.Navigation("TravelFrom");
+
+                    b.Navigation("TravelTo");
                 });
 
             modelBuilder.Entity("TravelDeskNst.Models.HotelDetail", b =>
@@ -461,7 +504,9 @@ namespace TravelDesk.Migrations
 
                     b.HasOne("TravelDeskNst.Models.User", "Manager")
                         .WithMany()
-                        .HasForeignKey("ManagerId");
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TravelDeskNst.Models.Project", "Project")
                         .WithMany()

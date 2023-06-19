@@ -18,7 +18,7 @@
 
 
         public virtual User? Manager { get; set; }
-        public int ManagerId { get; set; }
+        public int? ManagerId { get; set; }
         public Documents? Documents { get; set; }
         public int? DocumentsId { get; set; }
         public string AadharNumber { get; set; }
